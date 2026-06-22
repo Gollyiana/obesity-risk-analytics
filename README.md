@@ -13,3 +13,6 @@ This repository contains a data-driven web application developed using **Python*
 1. **Data Layer:** Processing raw patient behavioral records (`ObesityDataSet_raw_and_data_sinthetic.csv`).
 2. **Analytics Engine:** Data normalization, categorical label encoding, and Random Forest classification.
 3. **Frontend Application:** Streamlit multi-tab user interface for interactive diagnostics.
+
+## Dashboard Link
+-> https://obesity-risk-analyticsgit-7xdj8w7ya8gecqljcxx62z.streamlit.app/
