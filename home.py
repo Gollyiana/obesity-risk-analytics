@@ -58,6 +58,13 @@ home_page = st.Page(
     default=True
 )
 
+# Added your tab right here as the first entry under home!
+golinia_page = st.Page(
+    "pages/tab_1_golinia.py",
+    title="Cohort Data Diagnostics",
+    icon="📋"
+)
+
 insights_page = st.Page(
     "pages/tab_2_hidayah.py",
     title="Insights Dashboard",
@@ -73,5 +80,6 @@ model_page = st.Page(
 # -----------------------------
 # Navigation
 # -----------------------------
-pg = st.navigation([home_page, insights_page, model_page])
+# Included golinia_page into the active navigation array layout
+pg = st.navigation([home_page, golinia_page, insights_page, model_page])
 pg.run()
