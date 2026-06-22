@@ -64,8 +64,14 @@ insights_page = st.Page(
     icon="📊"
 )
 
+model_page = st.Page(
+    "pages/tab_3_arissa.py",
+    title="Model Evaluation Hub",
+    icon="🤖"
+)
+
 # -----------------------------
 # Navigation
 # -----------------------------
-pg = st.navigation([home_page, insights_page])
+pg = st.navigation([home_page, insights_page, model_page])
 pg.run()
