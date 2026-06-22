@@ -38,8 +38,8 @@ df_cleaned["TUE"] = df_cleaned["TUE"].round(1)                # Technology use
 # -----------------------------
 st.title("📊 Cohort Profile & Data Diagnostics")
 st.write(
-    "Welcome to the **Data Diagnostics and Overview Hub**. As the Data Engineer (Member 1), "
-    "this section details the initial data ingestion, resolution of synthetic formatting quirks, "
+    "Welcome to the **Data Diagnostics and Overview Hub**. "
+    "This section details the initial data ingestion, resolution of synthetic formatting quirks, "
     "and structural profile characteristics of the study cohort."
 )
 
