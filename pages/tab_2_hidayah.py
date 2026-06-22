@@ -3,21 +3,18 @@ import pandas as pd
 import plotly.express as px
 
 # -----------------------------
-# Page Configuration
+# Data URL
 # -----------------------------
-st.set_page_config(
-    page_title="Insights Dashboard",
-    page_icon="📊",
-    layout="wide"
-)
+DATA_URL = "https://raw.githubusercontent.com/Gollyiana/obesity-risk-analytics/refs/heads/main/ObesityDataSet_raw_and_data_sinthetic.csv"
+
 
 # -----------------------------
 # Load Dataset
 # -----------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("https://raw.githubusercontent.com/Gollyiana/obesity-risk-analytics/refs/heads/main/ObesityDataSet_raw_and_data_sinthetic.csv")
-    return df
+    return pd.read_csv(DATA_URL)
+
 
 df = load_data()
 
@@ -25,6 +22,7 @@ df = load_data()
 # Page Title
 # -----------------------------
 st.title("📊 Insights Dashboard")
+
 st.write(
     "This dashboard provides interactive visual insights from the obesity dataset. "
     "Users can filter the data and explore patterns related to obesity levels, "
@@ -71,6 +69,13 @@ filtered_df = df[
     (df["Age"] >= age_range[0]) &
     (df["Age"] <= age_range[1])
 ]
+
+# -----------------------------
+# Empty Data Check
+# -----------------------------
+if filtered_df.empty:
+    st.warning("No data available for the selected filters. Please adjust the filter options.")
+    st.stop()
 
 # -----------------------------
 # Key Metrics
