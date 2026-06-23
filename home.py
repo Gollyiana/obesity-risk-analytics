@@ -77,7 +77,7 @@ model_page = st.Page(
     icon="🤖"
 )
 
-model_page = st.Page(
+risk_page = st.Page(
     "pages/tab_4_aqif.py",
     title="Risk Analytics Dashboard",
     icon="⚖️"
