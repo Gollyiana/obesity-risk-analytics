@@ -77,9 +77,15 @@ model_page = st.Page(
     icon="🤖"
 )
 
+model_page = st.Page(
+    "pages/tab_4_aqif.py",
+    title="Risk Analytics Dashboard",
+    icon="⚖️"
+)
+
 # -----------------------------
 # Navigation
 # -----------------------------
 # Included golinia_page into the active navigation array layout
-pg = st.navigation([home_page, golinia_page, insights_page, model_page])
+pg = st.navigation([home_page, golinia_page, insights_page, model_page,  ])
 pg.run()
