@@ -18,7 +18,7 @@ def load_model():
 model = load_model()
 
 # ==========================================
-# 2. MAIN INTERFACE - MULTI-TAB ARCHITECTURE
+# 2. MAIN INTERFACE
 # ==========================================
 st.title("⚖️ Predictive Risk Assessment & System Architecture")
 st.caption("Integrated Full-Stack Web Application | Designed & Maintained by Aqif")
@@ -76,4 +76,26 @@ with tab1:
                 st.info("The subject falls within normal, safe operational parameters. Maintain current hydration (CH2O) and activity habits.")
             elif 35 <= risk_score < 70:
                 st.warning(f"### 🟡 MODERATE RISK ({risk_score}%)")
-                st.info("Precautionary thresholds breached. Increasing baseline water
+                st.info("Precautionary thresholds breached. Increasing baseline water intake (CH2O) is recommended.")
+            else:
+                st.error(f"### 🔴 HIGH RISK ({risk_score}%)")
+                st.info("Critical Risk Alert. Immediate clinical or behavioral interventions are advised.")
+
+            # ------------------------------------------
+            # DYNAMIC SENSITIVITY VISUALIZATION
+            # ------------------------------------------
+            st.markdown("---")
+            st.subheader("💧 Hydration (CH2O) Optimization Vector")
+            
+            water_scenarios = np.linspace(0.0, 5.0, 11)
+            simulated_risks = []
+            
+            for w in water_scenarios:
+                if model is not None:
+                    try:
+                        test_features = np.array([[w, age, activity_mapped, bmi, history_mapped]])
+                        prob = model.predict_proba(test_features)[0][1]
+                        simulated_risks.append(int(prob * 100))
+                    except Exception:
+                        simulated_risks.append(int(np.clip(risk_score + (ch2o - w) * 12, 5, 95)))
+                else:
