@@ -21,12 +21,10 @@ model = load_model()
 # 2. MAIN INTERFACE
 # ==========================================
 st.title("⚖️ Predictive Risk Assessment & System Architecture")
-st.caption("Integrated Full-Stack Web Application | Designed & Maintained by Aqif")
+st.caption("")
 
 tab1, tab2, tab3 = st.tabs([
     "🎯 Predictive Risk Calculator", 
-    "🏗️ System Architecture", 
-    "📈 Performance & Conclusions"
 ])
 
 # ------------------------------------------
