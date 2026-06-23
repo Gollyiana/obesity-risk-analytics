@@ -5,10 +5,8 @@ import joblib
 import time
 
 # ==========================================
-# 1. FLOATING REPAIR: RAW STRINGS FOR CSS
+# 1. CUSTOM CSS FOR POLISHED UI
 # ==========================================
-# Wrapping this in a raw string (r""") prevents Streamlit Cloud from misinterpreting 
-# the CSS curly brackets as Python string formatting parameters.
 custom_css = r"""
 <style>
     .reportview-container { background: #f0f2f6; }
@@ -34,17 +32,15 @@ st.markdown(custom_css, unsafe_with_html=True)
 @st.cache_resource
 def load_model():
     try:
-        # Tries loading the project pickle/joblib file
         model = joblib.load("model.joblib")
         return model
     except FileNotFoundError:
-        # Fallback dummy logic if Member 3's model isn't uploaded yet
         return None
 
 model = load_model()
 
 # ==========================================
-# 3. PAGE INTERFACE & MULTI-TAB ARCHITECTURE
+# 3. MAIN INTERFACE - MULTI-TAB ARCHITECTURE
 # ==========================================
 st.title("⚖️ Predictive Risk Assessment & System Architecture")
 st.caption("Integrated Full-Stack Web Application | Designed & Maintained by Aqif")
@@ -73,4 +69,35 @@ with tab1:
     with col2:
         st.subheader("📋 Clinical Metrics")
         bmi = st.number_input("Body Mass Index (BMI)", min_value=10.0, max_value=50.0, value=24.5, step=0.1)
-        family_history = st.radio("Family History of Risk?",
+        family_history = st.radio("Family History of Risk?", ["No", "Yes"])
+
+    st.markdown("---")
+    
+    if st.button("🚀 Calculate Risk Profile", use_container_width=True):
+        with st.spinner("Processing features through ML Pipeline..."):
+            time.sleep(0.6)
+            
+            history_mapped = 1 if family_history == "Yes" else 0
+            activity_mapped = {"Low": 0, "Moderate": 1, "High": 2}[physical_activity]
+            
+            features = np.array([[ch2o, age, activity_mapped, bmi, history_mapped]])
+            
+            if model is not None:
+                try:
+                    prediction_prob = model.predict_proba(features)[0][1]
+                    risk_score = int(prediction_prob * 100)
+                except Exception:
+                    risk_score = int(np.clip(50 + (bmi * 0.5) - (ch2o * 10), 0, 100))
+            else:
+                risk_score = int(np.clip(50 + (bmi * 0.5) - (ch2o * 10), 0, 100))
+
+            st.subheader("📊 Assessment Result")
+            if risk_score < 35:
+                st.markdown(f'<div class="metric-box low-risk">🟢 LOW RISK ({risk_score}%)</div>', unsafe_with_html=True)
+                st.success("The subject falls within normal, safe operational parameters. Maintain current hydration (CH2O) and activity habits.")
+            elif 35 <= risk_score < 70:
+                st.markdown(f'<div class="metric-box mod-risk">🟡 MODERATE RISK ({risk_score}%)</div>', unsafe_with_html=True)
+                st.warning("Precautionary thresholds breached. Increasing baseline water intake (CH2O) is recommended.")
+            else:
+                st.markdown(f'<div class="metric-box high-risk">🔴 HIGH RISK ({risk_score}%)</div>', unsafe_with_html=True)
+                st.error("Critical Risk Alert. Immediate clinical or behavioral interventions are advised.")
