@@ -87,5 +87,5 @@ model_page = st.Page(
 # Navigation
 # -----------------------------
 # Included golinia_page into the active navigation array layout
-pg = st.navigation([home_page, golinia_page, insights_page, model_page,  ])
+pg = st.navigation([home_page, golinia_page, insights_page, model_page, risk_page])
 pg.run()
